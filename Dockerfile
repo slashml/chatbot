@@ -1,4 +1,4 @@
-# Create a new stage named 'base' (you're missing this)
+# Define the base stage first
 FROM node:22.5.1-alpine AS base
 
 # Create a new stage named 'deps' based on the 'base' stage
@@ -47,8 +47,6 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 # Copy package.json from the 'builder' stage
 COPY --from=builder /app/package.json ./package.json
-# Copy .env.local from the 'builder' stage
-COPY --from=builder /app/.env.local ./
 # Switch to the 'nextjs' user
 USER nextjs
 # Expose port 3000
