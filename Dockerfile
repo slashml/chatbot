@@ -1,4 +1,3 @@
-# Define the base stage first
 FROM node:22.5.1-alpine AS base
 
 # Create a new stage named 'deps' based on the 'base' stage
@@ -7,10 +6,10 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 # Set the working directory to /app
 WORKDIR /app
-# Copy package.json and package-lock.json (if it exists) to the working directory
+# Copy package.json to the working directory
 COPY package.json ./
-# Install dependencies using npm ci (clean install)
-RUN npm ci
+# Install dependencies using npm install (instead of npm ci)
+RUN npm install --production=false
 
 # Create a new stage named 'builder' based on the 'base' stage
 FROM base AS builder
@@ -20,8 +19,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 # Copy all files from the current directory to the working directory
 COPY . .
-# Copy .env.local file
-COPY .env.local ./
 # Disable Next.js telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
 # Build the Next.js application
