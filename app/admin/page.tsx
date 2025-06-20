@@ -2,7 +2,20 @@ import { prisma } from '@/lib/prisma'
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
-async function getUsers() {
+type AdminUser = {
+  id: string;
+  name: string | null;
+  email: string;
+  image: string | null;
+  createdAt: Date;
+  lastLoginAt: Date | null;
+  loginCount: number;
+  _count: {
+    sessions: number;
+  };
+}
+
+async function getUsers(): Promise<AdminUser[]> {
   const users = await prisma.user.findMany({
     select: {
       id: true,
@@ -68,7 +81,7 @@ export default async function AdminPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {users.map((user) => (
+                {users.map((user: AdminUser) => (
                   <tr key={user.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
