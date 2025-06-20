@@ -21,6 +21,13 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # Disable Next.js telemetry
 ENV NEXT_TELEMETRY_DISABLED 1
+
+# Copy prisma schema
+COPY prisma ./prisma/
+
+# Generate Prisma client
+RUN npx prisma generate
+
 # Build the Next.js application
 RUN npm run build
 
