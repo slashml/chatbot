@@ -138,7 +138,7 @@ export default function ChatInterface() {
               </div>
               <div>
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  Gemini AI Assistant
+                  Gemini AI Assistant 2
                 </h1>
                 <p className="text-sm text-gray-500">
                   Welcome, {session?.user?.name}!
