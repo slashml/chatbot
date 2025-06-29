@@ -8,7 +8,7 @@ Local Storage: Chat history persists locally in the browser
 Responsive Design: Works seamlessly across desktop and mobile devices
 Real-time Chat Interface: Smooth, interactive messaging experience
 
-Tech Stack
+Tech Stack WOW
 
 Framework: Next.js 14+ with App Router
 Authentication: NextAuth.js with Google Provider
