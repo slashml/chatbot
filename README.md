@@ -153,4 +153,3 @@ Acknowledgments
 Google Gemini AI for powerful language processing
 Next.js team for the excellent framework
 NextAuth.js for authentication solutions
-this app is amazing man.
