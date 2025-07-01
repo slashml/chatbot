@@ -110,7 +110,6 @@ export default function SettingsPage() {
       const settingsStorageKey = `gemini-settings-${email}`
       localStorage.removeItem(settingsStorageKey)
 
-      
       // Reset to defaults
       setSettings({
         theme: 'auto',
@@ -121,7 +120,7 @@ export default function SettingsPage() {
         fontSize: 'medium',
         language: 'en'
       })
-      
+
       
       alert('All data has been cleared successfully.')
     }
