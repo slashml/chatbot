@@ -102,6 +102,7 @@ export default function SettingsPage() {
     if (window.confirm('Are you sure you want to clear all your data? This will delete your chat history, settings, and cannot be undone.?')) {
       const email = session.user.email
       // Clear chat history
+      
       const chatStorageKey = `gemini-chat-history-${email}`
       localStorage.removeItem(chatStorageKey)
       
