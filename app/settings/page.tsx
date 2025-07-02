@@ -105,9 +105,6 @@ export default function SettingsPage() {
 
       const chatStorageKey = `gemini-chat-history-${email}`
       localStorage.removeItem(chatStorageKey)
-
-      
-      
       // Clear settings
       const settingsStorageKey = `gemini-settings-${email}`
       localStorage.removeItem(settingsStorageKey)
