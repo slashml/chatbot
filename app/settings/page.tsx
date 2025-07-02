@@ -72,6 +72,7 @@ export default function SettingsPage() {
     }
   }, [session])
 
+  
   const saveSettings = async () => {
     if (!session?.user?.email) return
 
