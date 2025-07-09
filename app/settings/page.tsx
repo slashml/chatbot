@@ -80,6 +80,7 @@ export default function SettingsPage() {
     setSaveStatus('saving')
     setLoading(true)
 
+    
     try {
       const storageKey = `gemini-settings-${session.user.email}`
       localStorage.setItem(storageKey, JSON.stringify(settings))
