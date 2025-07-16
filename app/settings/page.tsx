@@ -73,9 +73,7 @@ export default function SettingsPage() {
     }
   }, [session])
 
-  
-
-//hello world
+//hello wor=ld
   // Save settings to localStorage on change
   const saveSettings = async () => {
     if (!session?.user?.email) return
