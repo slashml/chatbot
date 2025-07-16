@@ -74,7 +74,7 @@ export default function SettingsPage() {
   }, [session])
   
 
-  
+
 //hello world
   // Save settings to localStorage on change
   const saveSettings = async () => {
@@ -82,8 +82,6 @@ export default function SettingsPage() {
 
     setSaveStatus('saving')
     setLoading(true)
-    
-
     
     try {
       const storageKey = `gemini-settings-${session.user.email}`
