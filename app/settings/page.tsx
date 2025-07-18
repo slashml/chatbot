@@ -47,6 +47,9 @@ export default function SettingsPage() {
     language: 'en'
   })
 
+
+  
+
   // Redirect if not authenticated
   useEffect(() => {
     if (status === 'loading') return
