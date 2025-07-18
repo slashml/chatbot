@@ -31,6 +31,8 @@ interface UserSettings {
   fontSize: 'small' | 'medium' | 'large'
   language: string
 }
+
+
 export default function SettingsPage() {
   const { data: session, status } = useSession()
   const router = useRouter()
