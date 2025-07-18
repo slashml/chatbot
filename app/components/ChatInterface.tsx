@@ -3,6 +3,12 @@ import { useState, useEffect, useRef } from 'react';
 import { Send, Bot, User, Trash2, MessageCircle, LogOut } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 
+import { useRouter } from 'next/navigation'
+import { Settings } from 'lucide-react'
+
+// Then add this at the top of your ChatInterface component
+const router = useRouter()
+
 interface Message {
   role: 'user' | 'bot';
   content: string;
@@ -132,7 +138,7 @@ export default function ChatInterface() {
               </div>
               <div>
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  Gemini AI Assistant
+                  Gemini AI Assistant 2
                 </h1>
                 <p className="text-sm text-gray-500">
                   Welcome, {session?.user?.name}!
@@ -151,7 +157,14 @@ export default function ChatInterface() {
                   <span className="hidden sm:inline">Clear</span>
                 </button>
               )}
-              
+              <button
+                onClick={() => router.push('/settings')}
+                className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-200"
+                title="Settings"
+              >
+                <Settings className="w-4 h-4" />
+                <span className="hidden sm:inline">Settings</span>
+              </button>
               <div className="flex items-center space-x-2">
                 {session?.user?.image && (
                   <img
