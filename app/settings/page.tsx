@@ -46,7 +46,6 @@ export default function SettingsPage() {
     fontSize: 'medium',
     language: 'en'
   })
-
   // Redirect if not authenticated
   useEffect(() => {
     if (status === 'loading') return
@@ -78,6 +77,8 @@ export default function SettingsPage() {
 
     setSaveStatus('saving')
     setLoading(true)
+    
+
     
     try {
       const storageKey = `gemini-settings-${session.user.email}`
