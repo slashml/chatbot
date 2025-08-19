@@ -1,13 +1,10 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
-import { Send, Bot, User, Trash2, MessageCircle, LogOut } from 'lucide-react';
+import { Send, Bot, User, Trash2, MessageCircle, LogOut, Settings } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 
 import { useRouter } from 'next/navigation'
-import { Settings } from 'lucide-react'
-
-// Then add this at the top of your ChatInterface component
-const router = useRouter()
+const router = useRouter();
 
 interface Message {
   role: 'user' | 'bot';
@@ -148,14 +145,24 @@ export default function ChatInterface() {
             
             <div className="flex items-center space-x-2">
               {messages.length > 0 && (
-                <button
-                  onClick={clearChat}
-                  className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
-                  title="Clear chat history"
-                >
-                  <Trash2 className="w-4 h-4" />
-                  <span className="hidden sm:inline">Clear</span>
-                </button>
+                <>
+                  <button
+                    onClick={clearChat}
+                    className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
+                    title="Clear chat history"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    <span className="hidden sm:inline">Clear</span>
+                  </button>
+                  <button
+                    onClick={() => router.push('/conversations')}
+                    className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200"
+                    title="Recent Conversations"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span className="hidden sm:inline">History</span>
+                  </button>
+                </>
               )}
               <button
                 onClick={() => router.push('/settings')}
