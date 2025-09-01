@@ -88,7 +88,74 @@ async function runProfileExample() {
   }
 }
 
+// Settings Example
+async function runSettingsExample() {
+  console.log('\n--- Settings Example ---');
+
+  // Get current settings
+  const settings = await sdk.settings.getSettings();
+  if (settings) {
+    console.log('Current Settings:', settings);
+  } else {
+    console.log('Failed to get settings.');
+  }
+
+  // Update settings
+  const updatedSettings = await sdk.settings.updateSettings({ theme: 'dark', notificationsEnabled: false });
+  if (updatedSettings) {
+    console.log('Updated Settings:', updatedSettings);
+  } else {
+    console.log('Failed to update settings.');
+  }
+}
+
+// Notification Example
+async function runNotificationExample() {
+  console.log('\n--- Notification Example ---');
+
+  // Get notifications
+  const notifications = await sdk.notifications.getNotifications();
+  if (notifications) {
+    console.log('Notifications:', notifications);
+    if (notifications.length > 0) {
+      const firstUnread = notifications.find(n => !n.read);
+      if (firstUnread) {
+        console.log(`Marking notification ${firstUnread.id} as read...`);
+        const success = await sdk.notifications.markAsRead(firstUnread.id);
+        console.log(`Mark as read successful: ${success}`);
+      }
+    }
+  } else {
+    console.log('Failed to get notifications.');
+  }
+}
+
+// Blog Example
+async function runBlogExample() {
+  console.log('\n--- Blog Example ---');
+
+  // Get all blog posts
+  const posts = await sdk.blog.getPosts();
+  if (posts) {
+    console.log('Blog Posts:', posts);
+    if (posts.length > 0) {
+      // Get a single blog post
+      const singlePost = await sdk.blog.getPost(posts[0].id);
+      if (singlePost) {
+        console.log('Single Blog Post:', singlePost);
+      } else {
+        console.log('Failed to get single blog post.');
+      }
+    }
+  } else {
+    console.log('Failed to get blog posts.');
+  }
+}
+
 runChatExample();
 runAuthExample();
 runStatsExample();
 runProfileExample();
+runSettingsExample();
+runNotificationExample();
+runBlogExample();
