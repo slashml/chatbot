@@ -54,6 +54,41 @@ async function runAuthExample() {
   // sdk.auth.signOut(); // This will redirect to sign out
 }
 
+// User Stats Example
+async function runStatsExample() {
+  console.log('\n--- User Stats Example ---');
+  const stats = await sdk.stats.getStats();
+  if (stats) {
+    console.log('User Stats:', stats);
+  } else {
+    console.log('Failed to get user stats.');
+  }
+}
+
 // Run the examples
+// User Profile Example
+async function runProfileExample() {
+  console.log('\n--- User Profile Example ---');
+  const testUserId = 'user123'; // Replace with a valid user ID for testing
+
+  // Get user profile
+  const profile = await sdk.profile.getProfile(testUserId);
+  if (profile) {
+    console.log('User Profile:', profile);
+  } else {
+    console.log('Failed to get user profile.');
+  }
+
+  // Update user profile
+  const updatedProfile = await sdk.profile.updateProfile(testUserId, { name: 'Jane Doe' });
+  if (updatedProfile) {
+    console.log('Updated User Profile:', updatedProfile);
+  } else {
+    console.log('Failed to update user profile.');
+  }
+}
+
 runChatExample();
 runAuthExample();
+runStatsExample();
+runProfileExample();

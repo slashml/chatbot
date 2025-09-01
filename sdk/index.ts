@@ -16,6 +16,21 @@ export interface User {
   image?: string | null;
 }
 
+export interface UserStats {
+  totalUsers: number;
+  activeUsers: number;
+  recentUsers: number;
+  timestamp: string;
+}
+
+export interface UserProfile {
+  id: string;
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+  // Add other profile fields as needed
+}
+
 export interface Session {
   user?: User;
   expires: string;
@@ -83,13 +98,87 @@ export class ChatModule {
   }
 }
 
+// UserStatsModule
+export class UserStatsModule {
+  private baseUrl: string;
+
+  constructor(baseUrl: string) {
+    this.baseUrl = baseUrl;
+  }
+
+  public async getStats(): Promise<UserStats | null> {
+    try {
+      const response = await fetch(`${this.baseUrl}/api/users/stats`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const stats: UserStats = await response.json();
+      return stats;
+    } catch (error) {
+      console.error("Error fetching user stats:", error);
+      return null;
+    }
+  }
+}
+
+// UserProfileModule
+export class UserProfileModule {
+  private baseUrl: string;
+
+  constructor(baseUrl: string) {
+    this.baseUrl = baseUrl;
+  }
+
+  public async getProfile(userId: string): Promise<UserProfile | null> {
+    try {
+      // Placeholder for API call to get user profile
+      console.log(`Fetching profile for user: ${userId}`);
+      const response = await fetch(`${this.baseUrl}/api/users/${userId}/profile`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const profile: UserProfile = await response.json();
+      return profile;
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      return null;
+    }
+  }
+
+  public async updateProfile(userId: string, profileData: Partial<UserProfile>): Promise<UserProfile | null> {
+    try {
+      // Placeholder for API call to update user profile
+      console.log(`Updating profile for user: ${userId}`, profileData);
+      const response = await fetch(`${this.baseUrl}/api/users/${userId}/profile`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(profileData),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const updatedProfile: UserProfile = await response.json();
+      return updatedProfile;
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+      return null;
+    }
+  }
+}
+
 // Main SDK Class
 export class KiloCodeSDK {
   public chat: ChatModule;
   public auth: AuthModule;
+  public stats: UserStatsModule;
+  public profile: UserProfileModule;
 
   constructor(baseUrl: string) {
     this.chat = new ChatModule(baseUrl);
     this.auth = new AuthModule(baseUrl);
+    this.stats = new UserStatsModule(baseUrl);
+    this.profile = new UserProfileModule(baseUrl);
   }
 }
