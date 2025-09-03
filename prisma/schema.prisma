@@ -50,6 +50,7 @@ model User {
   
   accounts Account[]
   sessions Session[]
+  posts    Post[]
 }
 
 model VerificationToken {
@@ -58,4 +59,15 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?  @db.Text
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
