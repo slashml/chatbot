@@ -1,5 +1,4 @@
 import { getServerSession } from "next-auth/next";
-import { options } from "@/auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
@@ -14,9 +13,10 @@ export default async function ProfilePage() {
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
-    // include: {
-    //   subscription: true,
-    // },
+    include: {
+      posts: true,
+      accounts: true,
+    },
   });
 
   if (!user) {
@@ -122,65 +122,39 @@ export default async function ProfilePage() {
           </div>
         </div>
       </div>
+      {/* User Posts */}
+      <div className="bg-white p-6 rounded-lg shadow">
+        <h2 className="text-xl font-semibold mb-4">Your Posts</h2>
+        {user.posts && user.posts.length > 0 ? (
+          <ul className="list-disc pl-5 space-y-2">
+            {user.posts.map((post) => (
+              <li key={post.id}>
+                <Link href={`/posts/${post.id}`} className="text-blue-600 hover:underline">
+                  {post.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-500">No posts found.</p>
+        )}
+      </div>
 
-      {/* Token Usage History */}
-      {/* <div className="bg-white p-6 rounded-lg shadow">
-        <h2 className="text-xl font-semibold mb-4">Recent Token Usage</h2>
-        <TokenUsageTable userId={user.id} />
-      </div> */}
-    </div>
-  );
-}
-
-async function TokenUsageTable({ userId }: { userId: string }) {
-  const recentUsage = await prisma.tokenUsage.findMany({
-    where: { userId },
-    orderBy: { createdAt: "desc" },
-    take: 10,
-    include: {
-      workflow: {
-        select: {
-          Repo: true,
-          docsRepo: true,
-        },
-      },
-    },
-  });
-
-  if (recentUsage.length === 0) {
-    return <p className="text-gray-500">No token usage recorded yet.</p>;
-  }
-
-  return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full table-auto">
-        <thead>
-          <tr className="bg-gray-50">
-            <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Date</th>
-            <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Operation</th>
-            <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Tokens</th>
-            <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Repository</th>
-          </tr>
-        </thead>
-        <tbody>
-          {recentUsage.map((usage, idx) => (
-            <tr key={usage.id} className={idx % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-              <td className="px-4 py-2 text-sm text-gray-600">
-                {new Date(usage.createdAt).toLocaleDateString()}
-              </td>
-              <td className="px-4 py-2 text-sm text-gray-800">
-                {usage.operation}
-              </td>
-              <td className="px-4 py-2 text-sm text-gray-800">
-                {usage.tokensUsed.toLocaleString()}
-              </td>
-              <td className="px-4 py-2 text-sm text-gray-800">
-                {usage.workflow?.Repo || "–"}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {/* Connected Accounts */}
+      <div className="bg-white p-6 rounded-lg shadow">
+        <h2 className="text-xl font-semibold mb-4">Connected Accounts</h2>
+        {user.accounts && user.accounts.length > 0 ? (
+          <ul className="list-disc pl-5 space-y-2">
+            {user.accounts.map((account) => (
+              <li key={account.id}>
+                {account.provider}: {account.providerAccountId}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-500">No connected accounts.</p>
+        )}
+      </div>
     </div>
   );
 }
