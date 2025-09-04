@@ -1,0 +1,50 @@
+---
+title: 'Quickstart'
+description: 'Learn how to get the chatbot up and running in under 5 minutes'
+---
+
+# Quick Start Guide
+
+Follow these steps to get your chatbot instance up and running quickly.
+
+## Prerequisites
+
+- Node.js 16.8 or later
+- npm or yarn package manager
+- A database (PostgreSQL recommended)
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/dev-tahir/chatbot.git
+cd chatbot
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Set up environment variables:
+```bash
+cp tmp.env .env
+```
+Edit the `.env` file with your configuration.
+
+4. Set up the database:
+```bash
+npx prisma generate
+npx prisma db push
+```
+
+5. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+Your chatbot should now be running at `http://localhost:3000`!
