@@ -1,0 +1,94 @@
+```markdown
+# Users API
+
+This page documents the endpoints for managing and retrieving user information in the Chatbot API.
+
+---
+
+## Get User by ID
+
+Retrieves a user by their ID, including related posts and linked accounts.
+
+### Endpoint
+
+```
+GET /api/teams/[id]
+```
+
+### Parameters
+
+| Name  | In     | Type   | Required | Description           |
+|-------|--------|--------|----------|-----------------------|
+| id    | Path   | string | Yes      | The user's unique ID. |
+
+### Response
+
+- **200 OK**: Returns the user object, including the user's posts and accounts.
+- **404 Not Found**: User does not exist.
+- **500 Internal Server Error**: An error occurred on the server.
+
+#### Example Response
+
+```json
+{
+  "id": "clu12345",
+  "name": "Jane Doe",
+  "email": "jane@example.com",
+  "posts": [
+    {
+      "id": "post1",
+      "title": "Hello World"
+    }
+    // ...
+  ],
+  "accounts": [
+    {
+      "provider": "github",
+      "providerAccountId": "1234567"
+    }
+    // ...
+  ]
+}
+```
+
+---
+
+## User Statistics
+
+Provides aggregate statistics about users.
+
+### Endpoint
+
+```
+GET /api/teams/stats
+```
+
+> **Note**: Requires authentication. Unauthenticated requests will receive a `401 Unauthorized` response.
+
+### Response
+
+- **200 OK**: Returns statistics about users.
+- **401 Unauthorized**: Authentication is required.
+- **500 Internal Server Error**: An error occurred on the server.
+
+#### Example Response
+
+```json
+{
+  "totalUsers": 1234,
+  "activeUsers": 78,
+  "recentUsers": 56,
+  "timestamp": "2024-06-11T12:34:56.789Z"
+}
+```
+
+**Statistics:**
+- `totalUsers`: Total number of users.
+- `activeUsers`: Users with currently active sessions.
+- `recentUsers`: Number of users created in the last 7 days.
+- `timestamp`: When this data was generated.
+
+---
+
+If you have questions or need support, [contact us](mailto:support@example.com).
+```
