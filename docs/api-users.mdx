@@ -1,0 +1,118 @@
+```markdown
+# Users API
+
+This page documents the endpoints related to user management for the Chatbot API.
+
+---
+
+## Fetch a User
+
+**Endpoint:**
+```
+GET /api/groups/[id]
+```
+
+Fetch information about a specific user by their ID, including their posts and accounts.
+
+### Request
+
+- Method: `GET`
+- URL parameter: `id` — The user's unique identifier.
+
+**Example:**
+```
+GET /api/groups/123
+```
+
+### Response
+
+- `200 OK` with JSON:
+    ```json
+    {
+      "id": "123",
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "posts": [
+        {
+          "id": "abc",
+          "title": "First Post",
+          "content": "..."
+        }
+        // ... more posts
+      ],
+      "accounts": [
+        {
+          "provider": "google",
+          "providerAccountId": "xxx"
+        }
+        // ... more accounts
+      ],
+      // ...other user fields
+    }
+    ```
+- `404 Not Found`:
+    ```json
+    { "message": "User not found" }
+    ```
+- `500 Internal Server Error`:
+    ```json
+    { "message": "Error fetching user" }
+    ```
+
+---
+
+## Get User Statistics
+
+**Endpoint:**
+```
+GET /api/groups/stats
+```
+
+Retrieves various user statistics. Requires authentication.
+
+### Statistics Provided
+
+- `totalUsers`: Total number of users.
+- `activeUsers`: Users with an active session (not expired).
+- `recentUsers`: Users registered in the last 7 days.
+- `timestamp`: Time when the stats were generated (ISO 8601 string).
+
+### Request
+
+- Method: `GET`
+- Authentication: Required (must have a valid session).
+
+### Response
+
+- `200 OK` with JSON:
+    ```json
+    {
+      "totalUsers": 128,
+      "activeUsers": 45,
+      "recentUsers": 8,
+      "timestamp": "2024-06-12T13:42:11.615Z"
+    }
+    ```
+- `401 Unauthorized`:
+    ```json
+    { "error": "Unauthorized" }
+    ```
+- `500 Internal Server Error`:
+    ```json
+    { "error": "Failed to fetch stats" }
+    ```
+
+---
+
+## Error Handling
+
+Errors will be returned as JSON with an appropriate HTTP status code and a descriptive message.
+
+---
+
+## See Also
+
+- [API Introduction](./api-introduction)
+- [Authentication](./api-authentication)
+- [Chat API](./api-chat)
+```
