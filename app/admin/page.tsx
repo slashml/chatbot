@@ -15,6 +15,30 @@ type AdminUser = {
   };
 }
 
+async function getGroups(): Promise<AdminGroup[]> {
+  const groups = await prisma.group.findMany({
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      image: true,
+      createdAt: true,
+      lastLoginAt: true,
+      loginCount: true,
+      _count: {
+        select: {
+          sessions: true
+        }
+      }
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+  return groups
+}
+
+
 async function getUsers(): Promise<AdminUser[]> {
   const users = await prisma.user.findMany({
     select: {
