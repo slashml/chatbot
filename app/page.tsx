@@ -2,7 +2,7 @@
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import ChatInterface from './components/ChatInterface'
+import ChatInterface from './components/ChatInterfaceComponent'
 
 export default function Home() {
   const { data: session, status } = useSession()
