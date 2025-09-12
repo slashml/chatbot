@@ -5,7 +5,7 @@ description: 'Overview of the Chatbot API endpoints'
 
 # API Documentation
 
-The Chatbot API provides a set of endpoints for managing chat functionality, user authentication, and administrative tasks.
+The Chatbot API provides a set of endpoints for managing chat functionality, user authentication, administrative tasks, and now continent-related data.
 
 ## Base URL
 
@@ -25,9 +25,11 @@ Authorization: Bearer YOUR_ACCESS_TOKEN
 
 The API is organized into the following categories:
 
-- `/api/auth/*` - Authentication endpoints
-- `/api/chat/*` - Chat functionality
-- `/api/users/*` - User management
-- `/api/users/stats/*` - User statistics
+- `/api/auth/*` – Authentication endpoints
+- `/api/chat/*` – Chat functionality
+- `/api/users/*` – User management
+- `/api/users/stats/*` – User statistics
+- `/api/continents/*` – Continent data (e.g., `/api/continents/:id` to fetch a specific continent)
+- `/api/continents/stats/*` – Continent statistics (requires authentication)
 
 For detailed information about specific endpoints, see their respective documentation pages.
