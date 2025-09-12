@@ -13,7 +13,7 @@ interface Message {
   timestamp: number;
 }
 
-export default function ChatInterface() {
+export default function ChatInterfaceComponent() {
   const { data: session } = useSession();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState<string>('');
