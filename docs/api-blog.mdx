@@ -1,0 +1,36 @@
+---
+title: 'Blog API'
+description: 'Endpoints for retrieving and managing blog posts.'
+---
+
+# Blog API
+
+The Blog API exposes endpoints for fetching blog posts that appear in the public blog section of the application.
+
+## Endpoints
+
+### GET `/api/blog`
+Retrieve a list of published blog posts.
+
+**Query Parameters**
+- `page` _(optional)_: Page number for pagination.
+- `limit` _(optional)_: Number of posts per page (default: 10).
+
+**Response**
+```json
+[
+  {
+    "id": "clu6i8xk0001",
+    "title": "Introducing Gemini-Powered Chatbot",
+    "slug": "gemini-powered-chatbot",
+    "excerpt": "A short description…",
+    "createdAt": "2024-05-20T12:34:56.000Z"
+  }
+]
+```
+
+### Future Operations
+Currently, the Blog API is **read-only** (`GET`). Mutation endpoints (`POST`, `PUT`, `DELETE`) will be documented once implemented.
+
+## Authentication
+The `/api/blog` route is public by default. Future versions may introduce role-based access for draft or private posts.
