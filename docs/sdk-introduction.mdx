@@ -1,0 +1,87 @@
+---
+title: 'SDK Introduction'
+description: 'Programmatically interact with the Chatbot platform using the TypeScript SDK'
+---
+
+# Chatbot TypeScript SDK
+
+The Chatbot repository includes a full-featured **TypeScript SDK** located in `sdk/`. The SDK lets you consume the Chatbot API without manually crafting HTTP requests.
+
+## Installation
+
+The SDK ships with the project source; if you are developing _inside_ the monorepo you can import it directly:
+
+```ts
+import { KiloCodeSDK } from '@/sdk';
+```
+
+If you want to use the SDK in an external project, you can either:
+
+1. **Publish it** to your private registry, or
+2. **Copy** the `sdk/` folder into your project and update import paths.
+
+## Quick Example
+
+```ts
+import { KiloCodeSDK } from '@/sdk';
+
+const sdk = new KiloCodeSDK({
+  baseUrl: 'https://your-domain.com/api',
+  token: 'YOUR_ACCESS_TOKEN',
+});
+
+// Chat with Gemini
+const response = await sdk.chat.sendMessage({
+  content: 'Hello, AI!',
+});
+console.log(response.message);
+
+// Fetch current user profile
+const me = await sdk.userProfile.getCurrent();
+console.log(me.email);
+```
+
+## Exported Modules
+
+The SDK is modular. The primary exports include (see `sdk/index.ts`):
+
+- **AuthModule** – Sign-in, sign-out, refresh tokens
+- **ChatModule** – Send messages, retrieve chat history
+- **UserProfileModule** – Fetch & update profile data
+- **UserStatsModule** – Usage metrics and analytics
+- **SettingsModule** – Application-level settings
+
+Each module exposes strongly-typed methods, making the SDK ideal for TypeScript consumers.
+
+## Configuration Options
+
+| Option   | Type   | Description                                   |
+|----------|--------|-----------------------------------------------|
+| baseUrl  | string | Base URL of your deployed Chatbot API         |
+| token    | string | Bearer token for authenticated requests       |
+| fetcher? | (..)   | Custom fetch implementation (e.g., node-fetch)|
+
+## Error Handling
+
+All SDK methods throw JavaScript `Error` objects when a request fails. You can catch and inspect the `message` or extend the SDK to provide richer error shapes.
+
+```ts
+try {
+  await sdk.chat.sendMessage({ content: '' });
+} catch (err) {
+  console.error(err.message);
+}
+```
+
+## In-Depth Usage
+
+Refer to `sdk/example.ts` for comprehensive examples covering:
+
+- Authentication flows
+- Chat conversations
+- Working with stats endpoints
+- Managing user settings & profiles
+
+---
+
+Need more? Create an issue or pull request—contributions are welcome!
