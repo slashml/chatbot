@@ -1,0 +1,49 @@
+---
+title: 'Dark-Mode Toggle'
+description: 'How to enable and use dark-mode theming in the chatbot application'
+---
+
+# Dark-Mode Toggle
+
+The chatbot application ships with a ready-made dark-mode switch, implemented in `app/components/DarkModeToggle.tsx`. It leverages the `next-themes` package to persist the user’s theme preference and provides a simple icon-based toggle.
+
+## Features
+
+- Instant theme switching between light and dark
+- Preference persisted via `localStorage`
+- Uses `next-themes` for SSR-friendly theme management
+- Small, reusable component that can be placed anywhere in your UI
+
+## Usage
+
+1. Import the component:
+
+```tsx
+import DarkModeToggle from '@/components/DarkModeToggle';
+```
+
+2. Render it in your layout or any page/component:
+
+```tsx
+export default function Header() {
+  return (
+    <header className="flex items-center justify-between p-4">
+      <h1 className="text-xl font-bold">Chatbot</h1>
+      <DarkModeToggle />
+    </header>
+  );
+}
+```
+
+The toggle will automatically switch between the sun and moon icons (provided by **lucide-react**) and update the theme.
+
+## Configuration
+
+`next-themes` is already configured in `app/providers.tsx`. If you need to change default settings (e.g. system theme detection or storage key), edit the `<ThemeProvider>` props in that file.
+
+## Styling
+
+All Tailwind CSS color classes in the project make use of the `dark:` variant, so most components—including the Chat Interface—adapt automatically when the theme changes.
+
+---
+Need more control? You can override or extend the theme logic by passing additional props to `<ThemeProvider>` as documented in the [next-themes README](https://github.com/pacocoursey/next-themes).

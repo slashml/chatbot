@@ -1,0 +1,41 @@
+---
+title: 'Group API'
+description: 'Endpoints for managing user groups and retrieving group statistics.'
+---
+
+# Group API
+
+Groups allow users to collaborate and share resources. The Group API provides endpoints to fetch group details and aggregated statistics.
+
+## Endpoints
+
+### GET `/api/group/[id]`
+Fetch information about a specific group by its `id`.
+
+**Path Parameters**
+- `id`: Group identifier.
+
+**Response**
+```json
+{
+  "id": "clu70bqf0002",
+  "name": "Frontend Guild",
+  "memberCount": 42,
+  "createdAt": "2024-03-12T09:00:00Z"
+}
+```
+
+### GET `/api/group/stats`
+Return high-level statistics for all groups. Requires admin privileges.
+
+**Response**
+```json
+{
+  "totalGroups": 12,
+  "averageMembers": 18.6
+}
+```
+
+## Permissions
+- Regular users can access groups they belong to.
+- Admins can access any group and the `/stats` route.

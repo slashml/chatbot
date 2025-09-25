@@ -5,33 +5,43 @@ description: 'Welcome to the Chatbot documentation'
 
 # Welcome to Chatbot
 
-This is a Next.js-based chatbot application that provides real-time chat functionality with advanced features like authentication and admin controls.
+Chatbot is a modern, AI-powered application built with **Next.js 15+** that combines Google’s Gemini AI with Google OAuth authentication. It offers a rich real-time chat experience, an extensible API, and a growing SDK for programmatic access.
 
 ## Features
 
-- Real-time chat interface
-- User authentication
-- Admin dashboard
-- User statistics
-- Responsive design
-- Next.js 13+ App Router
-- TypeScript support
+- **AI-Powered Conversations** – Integrates Google Gemini for natural language responses
+- **Real-time Chat Interface**
+- **Google OAuth Authentication** with **NextAuth.js**
+- **Admin Dashboard** for managing users and groups
+- **User & Usage Statistics** endpoints
+- **Dark-Mode Toggle** for theme switching
+- **Local Storage** persistence of chat history
+- **Responsive Design** (desktop & mobile)
+- **Next.js 15+ App Router**
+- **TypeScript First** codebase & SDK
 
 ## Project Structure
 
-The project follows a modern Next.js 13+ structure with the App Router:
-
 ```bash
 app/
-├── admin/            # Admin dashboard
-├── api/             # API routes
-│   ├── auth/        # Authentication endpoints
-│   ├── chat/        # Chat endpoints
-│   └── users/       # User management endpoints
-├── components/      # Reusable components
-└── settings/       # User settings
+├── admin/              # Admin dashboard
+├── api/                # API routes
+│   ├── auth/           # Authentication endpoints
+│   ├── chat/           # Chat endpoints
+│   ├── users/          # User management endpoints
+│   ├── blog/           # Blog endpoints
+│   ├── group/          # Group endpoints
+│   ├── orgs/           # Organization endpoints
+│   └── teams/          # Team endpoints
+├── components/         # Reusable UI components (ChatInterfaceComponent, DarkModeToggle…)
+├── [static pages]/     # e.g., about/, help/, contact/, privacy-policy/
+├── profile/            # User profile pages
+├── settings/           # User settings
+└── sdk/                # TypeScript SDK for external integrations
 ```
+
+> Looking for the API? Jump to the [API Introduction](/api-introduction) or explore the new [SDK Introduction](/sdk-introduction) to integrate Chatbot into your own applications.
 
 ## Getting Started
 
-Check out our [Quick Start Guide](/quickstart) to begin using the chatbot.
+Head over to our [Quick Start Guide](/quickstart) to run Chatbot locally in just a few minutes.

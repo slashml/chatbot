@@ -15,23 +15,30 @@ The chat interface is the main component of the application, providing real-time
 - Message status (sent, delivered, read)
 - File attachments support
 - Responsive design
+- Built-in dark-mode support (via the `DarkModeToggle` component)
 
 ## Usage
 
-The chat interface is implemented in `app/components/ChatInterface.tsx`. To use it in your own component:
+The chat interface is implemented in `app/components/ChatInterfaceComponent.tsx`. To use it in your own component:
 
 ```tsx
-import ChatInterface from '@/components/ChatInterface';
+import ChatInterfaceComponent from '@/components/ChatInterfaceComponent';
 
 export default function YourComponent() {
   return (
-    <ChatInterface 
-      // Add your props here
+    <ChatInterfaceComponent 
+      // Add your props here (e.g. initialMessages, onSend, etc.)
     />
   );
 }
 ```
 
+> Note: The Chat Interface internally relies on the user session provided by **NextAuth**. Make sure your component tree is wrapped with the `<SessionProvider>` (already handled in `app/providers.tsx`).
+
+## Dark-Mode Integration
+
+If your page already includes the `DarkModeToggle` component (see the new “Dark-Mode Toggle” documentation page) the chat interface will automatically adapt to the selected theme.
+
 ## Customization
 
-The chat interface can be customized through props and CSS styling. See the component documentation for available options.
+The chat interface can be customized through props and Tailwind CSS utility classes. Refer to the component source for all available props.

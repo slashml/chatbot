@@ -1,0 +1,19 @@
+---
+title: 'Organizations API'
+description: 'Manage organizations and view organization statistics.'
+---
+
+# Organizations API
+
+Organizations represent top-level entities that own groups and teams.
+
+## Endpoints
+
+### GET `/api/orgs/[id]`
+Retrieve an organization by its `id`.
+
+### GET `/api/orgs/stats`
+Return aggregated statistics across all organizations (admin only).
+
+## Notes
+The Organizations API follows the same authentication model as the Group API. Additional CRUD operations will be documented as they are introduced.

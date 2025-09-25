@@ -5,7 +5,7 @@ description: 'Overview of the Chatbot API endpoints'
 
 # API Documentation
 
-The Chatbot API provides a set of endpoints for managing chat functionality, user authentication, and administrative tasks.
+The Chatbot API provides a comprehensive set of endpoints for managing chat functionality, authentication, content, and organizational resources.
 
 ## Base URL
 
@@ -15,19 +15,28 @@ https://your-domain.com/api
 
 ## Authentication
 
-Most API endpoints require authentication. Include the authentication token in the Authorization header:
+Most API endpoints require authentication. Include the authentication token in the `Authorization` header:
 
 ```bash
 Authorization: Bearer YOUR_ACCESS_TOKEN
 ```
 
-## API Endpoints
+## API Endpoint Categories
 
-The API is organized into the following categories:
+Below is a high-level overview of the available endpoint groups. Refer to the individual pages for detailed request/response information.
 
-- `/api/auth/*` - Authentication endpoints
-- `/api/chat/*` - Chat functionality
-- `/api/users/*` - User management
-- `/api/users/stats/*` - User statistics
+- `/api/auth/*` — Authentication endpoints
+- `/api/chat/*` — Chat functionality
+- `/api/blog/*` — Blog content (public articles, posts)
+- `/api/users/*` — User management
+- `/api/users/stats/*` — User statistics
+- `/api/group/*` — Group management
+- `/api/group/stats/*` — Group statistics
+- `/api/orgs/*` — Organization management
+- `/api/orgs/stats/*` — Organization statistics
+- `/api/teams/*` — Team management
+- `/api/teams/stats/*` — Team statistics
 
-For detailed information about specific endpoints, see their respective documentation pages.
+> NOTE: Statistics endpoints (`*/stats/*`) generally provide aggregated metrics and require elevated permissions.
+
+For detailed information about specific endpoints, see their respective documentation pages linked in the sidebar.

@@ -1,0 +1,28 @@
+---
+title: 'API – Groups'
+description: 'Endpoints for group resources and statistics'
+---
+
+# Groups API
+
+Base route: `/api/group`
+
+## GET `/api/group/:id`
+
+Fetch information about a specific group.
+
+```bash
+GET /api/group/123
+```
+
+### Stats
+
+`/api/group/stats` returns aggregated statistics for all groups (admin-only).
+
+```bash
+GET /api/group/stats
+```
+
+## Authentication
+
+All group endpoints require a valid admin session via Bearer token.
