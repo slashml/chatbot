@@ -23,15 +23,38 @@
   "navigation": [
     {
       "group": "Getting Started",
-      "pages": ["introduction", "quickstart"]
+      "pages": [
+        "introduction",
+        "quickstart"
+      ]
     },
     {
       "group": "Features",
-      "pages": ["chat-interface", "authentication", "admin-panel"]
+      "pages": [
+        "chat-interface",
+        "dark-mode-toggle",
+        "authentication",
+        "admin-panel"
+      ]
     },
     {
       "group": "API Reference",
-      "pages": ["api-introduction", "api-authentication", "api-chat", "api-users"]
+      "pages": [
+        "api-introduction",
+        "api-authentication",
+        "api-chat",
+        "api-blog",
+        "api-users",
+        "api-groups",
+        "api-orgs",
+        "api-teams"
+      ]
+    },
+    {
+      "group": "SDK",
+      "pages": [
+        "sdk-introduction"
+      ]
     }
   ]
 }
