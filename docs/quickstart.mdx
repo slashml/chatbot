@@ -5,46 +5,89 @@ description: 'Learn how to get the chatbot up and running in under 5 minutes'
 
 # Quick Start Guide
 
-Follow these steps to get your chatbot instance up and running quickly.
+Follow these steps to get your Chatbot instance running locally.
 
 ## Prerequisites
 
-- Node.js 16.8 or later
-- npm or yarn package manager
-- A database (PostgreSQL recommended)
+- Node.js **18+**
+- npm, **yarn**, or **pnpm**
+- A MySQL database (or compatible) reachable from your local machine
+- A Google Cloud project with the **Gemini API** enabled
+- Google OAuth 2.0 credentials
 
-## Installation
+## 1. Clone the repository
 
-1. Clone the repository:
 ```bash
 git clone https://github.com/dev-tahir/chatbot.git
 cd chatbot
 ```
 
-2. Install dependencies:
+## 2. Install dependencies
+
+Using the package manager of your choice:
+
 ```bash
+# npm
 npm install
-# or
+
+# yarn
 yarn install
+
+# pnpm
+pnpm install
 ```
 
-3. Set up environment variables:
+## 3. Configure environment variables
+
+Create a `.env.local` file in the project root and add the following variables:
+
 ```bash
-cp tmp.env .env
-```
-Edit the `.env` file with your configuration.
+# Google OAuth
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
 
-4. Set up the database:
+# NextAuth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=replace_with_random_string
+
+# Gemini API
+GEMINI_API_KEY=your_gemini_api_key
+
+# Database
+DATABASE_URL="mysql://USER:PASSWORD@HOST:PORT/DATABASE"
+```
+
+> Tip: You can copy a sample file (e.g., `docs/examples/.env.example`) if your repository provides one and fill in your own values.
+
+## 4. Set up the database
+
+Run the Prisma commands to generate the client and push the schema to your database:
+
 ```bash
 npx prisma generate
 npx prisma db push
 ```
 
-5. Start the development server:
+> If you make changes to the Prisma schema, run these commands again.
+
+## 5. Start the development server
+
 ```bash
+# npm
 npm run dev
-# or
+
+# yarn
 yarn dev
+
+# pnpm
+pnpm dev
 ```
 
-Your chatbot should now be running at `http://localhost:3000`!
+Open your browser to `http://localhost:3000` and sign in with Google to start chatting with Gemini AI.  
+Your chat history will be stored in the browser's local storage.
+
+## Next Steps
+
+- Read the [Introduction](/introduction) for a high-level overview.
+- Explore the [API Reference](/api-introduction) to integrate the backend endpoints.
+- Check out the [SDK](/sdk-introduction) for programmatic access.
