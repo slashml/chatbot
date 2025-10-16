@@ -1,0 +1,150 @@
+---
+title: 'Groups API'
+description: 'API endpoints for managing groups and user data'
+---
+
+# Groups API
+
+The Groups API provides endpoints for retrieving user information and statistics.
+
+## Get User by ID
+
+Retrieves detailed information about a specific user including their posts and accounts.
+
+### Endpoint
+
+```
+GET /api/groups/{id}
+```
+
+### Parameters
+
+| Parameter | Type   | Required | Description           |
+|-----------|--------|----------|-----------------------|
+| id        | string | Yes      | The unique user ID    |
+
+### Response
+
+Returns a user object with the following structure:
+
+```json
+{
+  "id": "string",
+  "name": "string",
+  "email": "string",
+  "posts": [
+    {
+      "id": "string",
+      "title": "string",
+      "content": "string",
+      "createdAt": "string"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "string",
+      "provider": "string",
+      "providerAccountId": "string"
+    }
+  ]
+}
+```
+
+### Example Request
+
+```bash
+curl -X GET https://your-domain.com/api/groups/user_123
+```
+
+### Error Responses
+
+| Status Code | Description           |
+|-------------|----------------------|
+| 404         | User not found       |
+| 500         | Internal server error|
+
+---
+
+## Get User Statistics
+
+Retrieves aggregated statistics about users in the system. This endpoint requires authentication.
+
+### Endpoint
+
+```
+GET /api/groups/stats
+```
+
+### Authentication
+
+This endpoint requires a valid session. Include your authentication credentials:
+
+```bash
+Authorization: Bearer YOUR_ACCESS_TOKEN
+```
+
+### Response
+
+Returns statistics object with the following structure:
+
+```json
+{
+  "totalUsers": 150,
+  "activeUsers": 45,
+  "recentUsers": 12,
+  "timestamp": "2024-10-16T18:37:39.298Z"
+}
+```
+
+### Response Fields
+
+| Field        | Type   | Description                                    |
+|--------------|--------|------------------------------------------------|
+| totalUsers   | number | Total number of registered users               |
+| activeUsers  | number | Number of users with active sessions           |
+| recentUsers  | number | Number of users registered in the last 7 days  |
+| timestamp    | string | ISO timestamp of when stats were generated     |
+
+### Example Request
+
+```bash
+curl -X GET https://your-domain.com/api/groups/stats \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+### Error Responses
+
+| Status Code | Description                        |
+|-------------|-----------------------------------|
+| 401         | Unauthorized - Invalid or missing session |
+| 500         | Failed to fetch stats             |
+
+## Use Cases
+
+### Displaying User Profiles
+
+Use the `/api/groups/{id}` endpoint to fetch complete user information for profile pages:
+
+```javascript
+async function fetchUserProfile(userId) {
+  const response = await fetch(`/api/groups/${userId}`);
+  const user = await response.json();
+  return user;
+}
+```
+
+### Dashboard Statistics
+
+Use the `/api/groups/stats` endpoint to populate admin dashboards with real-time user metrics:
+
+```javascript
+async function fetchDashboardStats() {
+  const response = await fetch('/api/groups/stats', {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  });
+  const stats = await response.json();
+  return stats;
+}
+```
