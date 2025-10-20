@@ -1,0 +1,151 @@
+---
+title: 'Teams API'
+description: 'API endpoints for managing teams and user information'
+---
+
+# Teams API
+
+The Teams API provides endpoints for retrieving user information and team statistics.
+
+## Get User by ID
+
+Retrieves detailed information about a specific user, including their posts and linked accounts.
+
+### Endpoint
+
+```
+GET /api/teams/[id]
+```
+
+### Parameters
+
+| Parameter | Type   | Location | Description                        |
+|-----------|--------|----------|------------------------------------|
+| `id`      | string | path     | The unique identifier of the user  |
+
+### Response
+
+Returns a user object with the following structure:
+
+```json
+{
+  "id": "string",
+  "name": "string",
+  "email": "string",
+  "posts": [
+    {
+      "id": "string",
+      "title": "string",
+      "content": "string",
+      "createdAt": "string"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "string",
+      "provider": "string",
+      "providerAccountId": "string"
+    }
+  ]
+}
+```
+
+### Example Request
+
+```bash
+curl -X GET https://your-domain.com/api/teams/user-123
+```
+
+### Response Codes
+
+| Status Code | Description                               |
+|-------------|-------------------------------------------|
+| 200         | Successfully retrieved user information   |
+| 404         | User not found                            |
+| 500         | Internal server error                     |
+
+### Error Response
+
+```json
+{
+  "message": "User not found"
+}
+```
+
+---
+
+## Get Team Statistics
+
+Retrieves statistics about users and team activity. This endpoint requires authentication.
+
+### Endpoint
+
+```
+GET /api/teams/stats
+```
+
+### Authentication
+
+This endpoint requires authentication. Include your session token in the request.
+
+### Response
+
+Returns statistics with the following structure:
+
+```json
+{
+  "totalUsers": 150,
+  "activeUsers": 45,
+  "recentUsers": 12,
+  "timestamp": "2024-01-15T10:30:00.000Z"
+}
+```
+
+### Response Fields
+
+| Field         | Type   | Description                                          |
+|---------------|--------|------------------------------------------------------|
+| `totalUsers`  | number | Total number of users in the system                  |
+| `activeUsers` | number | Number of users with active sessions                 |
+| `recentUsers` | number | Number of users created in the last 7 days           |
+| `timestamp`   | string | ISO 8601 timestamp of when the stats were generated  |
+
+### Example Request
+
+```bash
+curl -X GET https://your-domain.com/api/teams/stats \
+  -H "Cookie: next-auth.session-token=your-session-token"
+```
+
+### Response Codes
+
+| Status Code | Description                               |
+|-------------|-------------------------------------------|
+| 200         | Successfully retrieved statistics         |
+| 401         | Unauthorized - authentication required    |
+| 500         | Internal server error                     |
+
+### Error Responses
+
+#### Unauthorized
+
+```json
+{
+  "error": "Unauthorized"
+}
+```
+
+#### Server Error
+
+```json
+{
+  "error": "Failed to fetch stats"
+}
+```
+
+## Notes
+
+- The `/api/teams/[id]` endpoint fetches user information but is organized under the teams namespace
+- The `/api/teams/stats` endpoint counts active users based on session expiration dates
+- Recent users are calculated as those created within the last 7 days
+- All timestamps follow ISO 8601 format
