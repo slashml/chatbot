@@ -4,6 +4,8 @@ Features
 
 AI-Powered Conversations: Leverages Google's Gemini API for natural language processing
 Google Authentication: Secure user login with Google OAuth
+Team Statistics: Track user metrics including total users, active sessions, and recent signups
+User Management: Access detailed user information with posts and accounts
 Local Storage: Chat history persists locally in the browser
 Responsive Design: Works seamlessly across desktop and mobile devices
 Real-time Chat Interface: Smooth, interactive messaging experience
@@ -13,6 +15,7 @@ Tech Stack WOW
 Framework: Next.js 14+ with App Router
 Authentication: NextAuth.js with Google Provider
 AI Integration: Google Gemini API
+Database: Prisma ORM
 Styling: Tailwind CSS (or your preferred styling solution)
 Storage: Browser Local Storage
 Language: TypeScript
@@ -23,6 +26,7 @@ Before running this application, make sure you have:
 Node.js 18+ installed
 A Google Cloud Project with Gemini API enabled
 Google OAuth credentials configured
+A database (PostgreSQL, MySQL, or SQLite) for Prisma
 
 Environment Variables
 Create a .env.local file in the root directory:
@@ -36,6 +40,9 @@ NEXTAUTH_SECRET=your_nextauth_secret
 
 # Gemini API
 GEMINI_API_KEY=your_gemini_api_key
+
+# Database
+DATABASE_URL=your_database_connection_string
 Installation
 
 Clone the repository:
@@ -52,6 +59,11 @@ yarn install
 pnpm install
 
 Set up environment variables (see above)
+Initialize the database:
+
+bashnpx prisma generate
+npx prisma db push
+
 Run the development server:
 
 bashnpm run dev
@@ -88,18 +100,26 @@ API Routes
 
 /api/auth/* - NextAuth.js authentication endpoints
 /api/chat - Gemini API integration for chat responses
+/api/teams/[id] - Get user details by ID (includes posts and accounts)
+/api/teams/stats - Get team statistics (requires authentication)
 
 Project Structure
 ├── app/
 │   ├── api/
 │   │   ├── auth/
-│   │   └── chat/
+│   │   ├── chat/
+│   │   └── teams/
+│   │       ├── [id]/
+│   │       │   └── route.ts
+│   │       └── stats/
+│   │           └── route.ts
 │   ├── components/
 │   ├── page.tsx
 │   └── layout.tsx
 ├── lib/
 │   ├── auth.ts
 │   ├── gemini.ts
+│   ├── prisma.ts
 │   └── utils.ts
 ├── types/
 └── public/
@@ -116,6 +136,12 @@ Authentication
 Secure Google OAuth integration
 User session management
 Protected routes and API endpoints
+
+Teams API
+
+User Details: Retrieve individual user information including posts and accounts
+Statistics Dashboard: View team-wide statistics including total users, active sessions, and recent signups
+Protected Endpoints: Stats endpoint requires authentication for secure access
 
 Local Storage
 
