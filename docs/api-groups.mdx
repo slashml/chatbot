@@ -1,0 +1,144 @@
+---
+title: 'Groups API'
+description: 'API endpoints for managing groups and user data'
+---
+
+# Groups API
+
+The Groups API provides endpoints for retrieving user information and statistics.
+
+## Get User by ID
+
+Retrieve detailed information about a specific user, including their posts and accounts.
+
+### Endpoint
+
+```
+GET /api/groups/[id]
+```
+
+### Path Parameters
+
+| Parameter | Type   | Description                    |
+|-----------|--------|--------------------------------|
+| `id`      | string | The unique identifier of the user |
+
+### Response
+
+Returns a user object with related data.
+
+#### Success Response (200 OK)
+
+```json
+{
+  "id": "user-id",
+  "name": "User Name",
+  "email": "user@example.com",
+  "posts": [
+    {
+      "id": "post-id",
+      "title": "Post Title",
+      "content": "Post content..."
+    }
+  ],
+  "accounts": [
+    {
+      "id": "account-id",
+      "provider": "google",
+      "providerAccountId": "123456"
+    }
+  ]
+}
+```
+
+#### Error Responses
+
+**404 Not Found** - User does not exist
+
+```json
+{
+  "message": "User not found"
+}
+```
+
+**500 Internal Server Error** - Server error occurred
+
+```json
+{
+  "message": "Error fetching user"
+}
+```
+
+### Example
+
+```bash
+curl -X GET https://your-domain.com/api/groups/user-123
+```
+
+## Get User Statistics
+
+Retrieve statistics about users in the system, including total users, active sessions, and recent signups.
+
+### Endpoint
+
+```
+GET /api/groups/stats
+```
+
+### Authentication
+
+This endpoint requires authentication. Include your session token in the request.
+
+### Response
+
+Returns statistics about users in the system.
+
+#### Success Response (200 OK)
+
+```json
+{
+  "totalUsers": 150,
+  "activeUsers": 42,
+  "recentUsers": 12,
+  "timestamp": "2025-10-20T21:45:00.000Z"
+}
+```
+
+| Field         | Type   | Description                                      |
+|---------------|--------|--------------------------------------------------|
+| `totalUsers`  | number | Total number of users in the system              |
+| `activeUsers` | number | Number of users with active sessions             |
+| `recentUsers` | number | Number of users created in the last 7 days       |
+| `timestamp`   | string | ISO 8601 timestamp of when stats were generated  |
+
+#### Error Responses
+
+**401 Unauthorized** - Authentication required
+
+```json
+{
+  "error": "Unauthorized"
+}
+```
+
+**500 Internal Server Error** - Server error occurred
+
+```json
+{
+  "error": "Failed to fetch stats"
+}
+```
+
+### Example
+
+```bash
+curl -X GET https://your-domain.com/api/groups/stats \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+## Notes
+
+- The user statistics endpoint requires an active session for security
+- Active users are determined by valid, non-expired sessions
+- Recent users are counted from the last 7 days
+- All timestamps are returned in ISO 8601 format
