@@ -1,0 +1,94 @@
+# Users API
+
+This page documents the API endpoints related to user operations in the Chatbot application.
+
+---
+
+## Get Individual User
+
+Fetch a user's details by their ID, including their posts and account information.
+
+**Endpoint:**
+```
+GET /api/groups/[id]
+```
+
+**Path Parameters:**
+| Name | Type   | Description          |
+|------|--------|----------------------|
+| id   | string | The user's unique ID |
+
+**Response:**
+- `200 OK` with user data, including:
+  - `posts`: List of posts by the user
+  - `accounts`: Linked account details
+
+**Example Response:**
+```json
+{
+  "id": "clv6u6tuv1234567890abcdef",
+  "name": "Jane Doe",
+  "email": "jane@example.com",
+  "posts": [
+    {
+      "id": "post1",
+      "title": "First Post",
+      "content": "..."
+    }
+  ],
+  "accounts": [
+    {
+      "provider": "google",
+      "providerAccountId": "1122334455"
+    }
+  ],
+  // ...other user fields
+}
+```
+
+**Error Responses:**
+- `404 Not Found`: User does not exist
+- `500 Internal Server Error`: An error occurred fetching the user
+
+
+---
+
+## Get User Statistics (Admin Only)
+
+Retrieve overall user statistics. Requires authentication.
+
+**Endpoint:**
+```
+GET /api/groups/stats
+```
+
+**Authentication:** User must be logged in (session required).
+
+**Response:**
+- `200 OK` with statistics:
+  - `totalUsers`: Count of all registered users
+  - `activeUsers`: Number of users with active sessions (not expired)
+  - `recentUsers`: Number of users registered in the last 7 days
+  - `timestamp`: Timestamp of when stats were generated
+
+**Example Response:**
+```json
+{
+  "totalUsers": 1054,
+  "activeUsers": 243,
+  "recentUsers": 17,
+  "timestamp": "2024-06-13T12:34:56.789Z"
+}
+```
+
+**Error Responses:**
+- `401 Unauthorized`: User is not authenticated
+- `500 Internal Server Error`: Failed to fetch stats
+
+---
+
+## Notes
+
+- All endpoints return data in JSON format.
+- For protected routes, ensure to include proper authentication (session/token).
+- For additional user-related endpoints, consult the rest of the documentation or contact [Support](mailto:support@example.com).
