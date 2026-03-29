@@ -5,7 +5,7 @@ description: 'Overview of the Chatbot API endpoints'
 
 # API Documentation
 
-The Chatbot API provides a set of endpoints for managing chat functionality, user authentication, and administrative tasks.
+The Chatbot API provides a set of endpoints for managing chat functionality, user authentication, group and user management, and administrative tasks.
 
 ## Base URL
 
@@ -21,6 +21,8 @@ Most API endpoints require authentication. Include the authentication token in t
 Authorization: Bearer YOUR_ACCESS_TOKEN
 ```
 
+Some endpoints—such as the **Group Statistics** endpoint—additionally require a valid session. If a request is made without a session, the server will respond with `401 Unauthorized`.
+
 ## API Endpoints
 
 The API is organized into the following categories:
@@ -29,5 +31,7 @@ The API is organized into the following categories:
 - `/api/chat/*` - Chat functionality
 - `/api/users/*` - User management
 - `/api/users/stats/*` - User statistics
+- `/api/groups/*` - Group management
+- `/api/groups/stats/*` - Group statistics
 
 For detailed information about specific endpoints, see their respective documentation pages.
